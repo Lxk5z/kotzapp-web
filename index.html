@@ -6,72 +6,69 @@
     <title>KotzApp Web</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- Hauptscreen -->
-    <div id="app">
+    <!-- Hauptbereich -->
+    <div id="screen-container">
 
-        <!-- Kopfzeile -->
-        <header id="header">
-            <h1>KotzApp Web</h1>
-        </header>
+        <!-- STARTSCREEN -->
+        <div class="screen" id="screen-home">
+            <h1 class="title">KotzApp Web 😎🚀</h1>
+            <p>Willkommen! Wähle unten einen Bereich aus.</p>
+        </div>
 
-        <!-- Inhaltsbereich -->
-        <main id="screen">
-            <p>Willkommen in KotzApp Web 😎🚀</p>
-            <p>Wähle unten einen Bereich aus.</p>
-        </main>
+        <!-- CHATS -->
+        <div class="screen" id="screen-chats">
+            <h1>Chats 💬</h1>
+            <p>Hier kommen später deine Chats rein.</p>
+        </div>
 
-        <!-- Untere Navigation -->
-        <nav id="bottom-nav">
-            <button class="nav-btn" data-screen="chats">
-                💬<span>Chats</span>
-            </button>
+        <!-- GAMING -->
+        <div class="screen" id="screen-gaming">
+            <h1>Gaming 🎮</h1>
+            <p>Hier kommt später KotzApp Gaming rein.</p>
+        </div>
 
-            <button class="nav-btn" data-screen="gaming">
-                🎮<span>Gaming</span>
-            </button>
+        <!-- SUPPORT -->
+        <div class="screen" id="screen-support">
+            <h1>Support 🛠️</h1>
+            <p>Melde Bugs, Probleme, Wünsche…</p>
+        </div>
 
-            <button class="nav-btn" data-screen="support">
-                🐞<span>Support</span>
-            </button>
+        <!-- EINSTELLUNGEN -->
+        <div class="screen" id="screen-settings">
+            <h1>Einstellungen ⚙️</h1>
 
-            <button class="nav-btn" data-screen="settings">
-                ⚙️<span>Einstellungen</span>
-            </button>
-        </nav>
+            <button class="btn" onclick="openScreen('screen-theme')">🎨 Theme / Farbe ändern</button>
+        </div>
+
+        <!-- THEME UNTERMENÜ -->
+        <div class="screen" id="screen-theme">
+            <h1>Theme ändern</h1>
+
+            <div class="color-bar">
+                <button class="color green" onclick="setTheme('#1ea362')">Grün</button>
+                <button class="color blue" onclick="setTheme('#2478ff')">Blau</button>
+                <button class="color red" onclick="setTheme('#ff4b4b')">Rot</button>
+                <button class="color yellow" onclick="setTheme('#e6c926')">Gelb</button>
+            </div>
+
+            <p>(Später: Bild/GIF-Hintergrund)</p>
+
+            <button class="btn" onclick="openScreen('screen-settings')">⬅️ Zurück</button>
+        </div>
 
     </div>
 
-    <!-- Einstellungen Untermenü -->
-    <div id="settings-menu" class="hidden">
-        <h2>Einstellungen</h2>
-
-        <button class="sub-btn" onclick="openThemeMenu()">
-            🎨 Theme / Farbe ändern
-        </button>
-
-        <button class="sub-btn" onclick="closeSettingsMenu()">
-            🔙 Zurück
-        </button>
+    <!-- Navigation unten -->
+    <div id="navbar">
+        <div class="nav-item" onclick="openScreen('screen-chats')">💩<br>Chats</div>
+        <div class="nav-item" onclick="openScreen('screen-gaming')">🎮<br>Gaming</div>
+        <div class="nav-item" onclick="openScreen('screen-support')">🛠️<br>Support</div>
+        <div class="nav-item" onclick="openScreen('screen-settings')">⚙️<br>Settings</div>
     </div>
 
-    <!-- Theme Menü -->
-    <div id="theme-menu" class="hidden">
-        <h2>Theme ändern</h2>
-
-        <button class="theme-btn" onclick="setThemeColor('#00a884')">Grün</button>
-        <button class="theme-btn" onclick="setThemeColor('#5865f2')">Blau</button>
-        <button class="theme-btn" onclick="setThemeColor('#ff5c5c')">Rot</button>
-        <button class="theme-btn" onclick="setThemeColor('#ffb300')">Gelb</button>
-
-        <p style="margin-top:20px;">(Später: Bild/GIF-Hintergrund)</p>
-
-        <button class="sub-btn" onclick="closeThemeMenu()">
-            🔙 Zurück
-        </button>
-    </div>
-
-    <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
