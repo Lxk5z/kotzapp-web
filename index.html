@@ -91,5 +91,22 @@
     </button>
 </nav>
 
+    <script>
+const navButtons = document.querySelectorAll(".nav-btn");
+
+navButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        navButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const page = btn.dataset.page;
+        console.log("Wechsel zu Seite:", page);
+
+        // Hier kannst du später deine eigenen Seiten laden (SPA)
+        // z.B. loadPage(page);
+    });
+});
+</script>
+
 </body>
 </html>
