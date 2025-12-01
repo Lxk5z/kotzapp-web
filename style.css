@@ -1,3 +1,41 @@
+/* Splash Screen Style */
+#splash {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 99999;
+}
+
+#splash-icon {
+  width: 120px;
+  height: 120px;
+}
+
+.loader {
+  border: 6px solid #eee;
+  border-top: 6px solid #00c853;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: spin 1.1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #444;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 body {
     margin: 0;
     background: #111;
