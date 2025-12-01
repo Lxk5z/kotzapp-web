@@ -16,12 +16,17 @@
 
       <div class="settings-item">
         <span>Farbthema</span>
-        <select id="color-theme">
-          <option value="green">Grün</option>
-          <option value="blue">Blau</option>
-          <option value="purple">Lila</option>
-          <option value="red">Rot</option>
-        </select>
+        
+        <!-- Neuer, interaktiver Color Picker -->
+        <input type="color" id="color-picker" value="#00c853" style="
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            cursor: pointer;
+        ">
       </div>
     </div>
 
@@ -42,5 +47,72 @@
 
   </div>
 
-<script src="settings.js"></script>
+  <script src="settings.js"></script>
+
+  <style>
+
+    /* -------- Auto Dark Mode -------- */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1a1a1a;
+        color: white;
+      }
+      .settings-container {
+        background-color: #242424;
+      }
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2;
+      color: #000;
+      transition: 0.3s;
+    }
+
+    .settings-container {
+      padding: 20px;
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .settings-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+    }
+
+    .settings-section {
+      margin-top: 30px;
+      background: rgba(255,255,255,0.7);
+      padding: 15px;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .settings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 15px 0;
+    }
+
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+  </style>
+
 </body>
