@@ -7,7 +7,6 @@ window.addEventListener("load", () => {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     if (prefersDark) {
       document.body.classList.add("dark");
-      localStorage.setItem("kotz_dark", true);
       const toggle = document.getElementById("toggle-dark");
       if (toggle) toggle.checked = true;
     }
