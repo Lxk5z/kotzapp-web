@@ -1,112 +1,77 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KotzApp Web</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="theme-overlay"></div>
+    <!-- Hauptscreen -->
+    <div id="app">
 
-<div class="app">
+        <!-- Kopfzeile -->
+        <header id="header">
+            <h1>KotzApp Web</h1>
+        </header>
 
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-        <h1 class="title">💩 Chats</h1>
+        <!-- Inhaltsbereich -->
+        <main id="screen">
+            <p>Willkommen in KotzApp Web 😎🚀</p>
+            <p>Wähle unten einen Bereich aus.</p>
+        </main>
 
-        <input type="text" placeholder="Suchen…" class="search" />
+        <!-- Untere Navigation -->
+        <nav id="bottom-nav">
+            <button class="nav-btn" data-screen="chats">
+                💬<span>Chats</span>
+            </button>
 
-        <div class="chat-list">
-            <div class="chat-preview">
-                <img src="https://i.pravatar.cc/50?img=3" />
-                <div>
-                    <h3>Sofia</h3>
-                    <p>Sticker</p>
-                </div>
-            </div>
+            <button class="nav-btn" data-screen="gaming">
+                🎮<span>Gaming</span>
+            </button>
 
-            <div class="chat-preview">
-                <img src="https://i.pravatar.cc/50?img=10" />
-                <div>
-                    <h3>Diego</h3>
-                    <p>typing...</p>
-                </div>
-            </div>
-        </div>
+            <button class="nav-btn" data-screen="support">
+                🐞<span>Support</span>
+            </button>
 
-        <div class="bottom-menu">
-            <button onclick="setThemeColor()">🎨</button>
-            <button onclick="setThemeImage()">🖼️</button>
-            <button onclick="setThemeGif()">🎞️</button>
-        </div>
+            <button class="nav-btn" data-screen="settings">
+                ⚙️<span>Einstellungen</span>
+            </button>
+        </nav>
+
     </div>
 
-    <!-- CHAT -->
-    <div class="chat">
-        <div class="chat-header">
-            <img src="https://i.pravatar.cc/50?img=3" />
-            <div>
-                <h3>Sofia</h3>
-                <p>online</p>
-            </div>
-        </div>
+    <!-- Einstellungen Untermenü -->
+    <div id="settings-menu" class="hidden">
+        <h2>Einstellungen</h2>
 
-        <div class="messages">
-            <div class="message incoming">Heyyy 😎</div>
-            <div class="message outgoing">Was geht ab?</div>
-        </div>
+        <button class="sub-btn" onclick="openThemeMenu()">
+            🎨 Theme / Farbe ändern
+        </button>
 
-        <div class="input-box">
-            <input type="text" placeholder="Nachricht…" />
-            <button>📩</button>
-        </div>
+        <button class="sub-btn" onclick="closeSettingsMenu()">
+            🔙 Zurück
+        </button>
     </div>
 
-</div>
+    <!-- Theme Menü -->
+    <div id="theme-menu" class="hidden">
+        <h2>Theme ändern</h2>
 
-<script src="app.js"></script>
+        <button class="theme-btn" onclick="setThemeColor('#00a884')">Grün</button>
+        <button class="theme-btn" onclick="setThemeColor('#5865f2')">Blau</button>
+        <button class="theme-btn" onclick="setThemeColor('#ff5c5c')">Rot</button>
+        <button class="theme-btn" onclick="setThemeColor('#ffb300')">Gelb</button>
 
-<!-- Bottom Navigation -->
-<nav class="bottom-nav">
-    <button class="nav-btn active" data-page="chats">
-        <img src="icons/chats.svg" class="nav-icon">
-        <span>Chats</span>
-    </button>
+        <p style="margin-top:20px;">(Später: Bild/GIF-Hintergrund)</p>
 
-    <button class="nav-btn" data-page="gaming">
-        <img src="icons/gaming.svg" class="nav-icon">
-        <span>Gaming</span>
-    </button>
+        <button class="sub-btn" onclick="closeThemeMenu()">
+            🔙 Zurück
+        </button>
+    </div>
 
-    <button class="nav-btn" data-page="support">
-        <img src="icons/support.svg" class="nav-icon">
-        <span>Support</span>
-    </button>
-
-    <button class="nav-btn" data-page="settings">
-        <img src="icons/settings.svg" class="nav-icon">
-        <span>Einstellungen</span>
-    </button>
-</nav>
-
-    <script>
-const navButtons = document.querySelectorAll(".nav-btn");
-
-navButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        navButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        const page = btn.dataset.page;
-        console.log("Wechsel zu Seite:", page);
-
-        // Hier kannst du später deine eigenen Seiten laden (SPA)
-        // z.B. loadPage(page);
-    });
-});
-</script>
-
+    <script src="app.js"></script>
 </body>
 </html>
