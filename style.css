@@ -14,7 +14,10 @@
 #splash-icon {
   width: 120px;
   height: 120px;
+  border-radius: 25%;   /* macht die Ecken schön rund */
+  object-fit: cover;    /* verhindert Verzerrungen */
 }
+
 
 .loader {
   border: 6px solid #eee;
