@@ -1,3 +1,72 @@
+/* =========================================
+   THEME VARIABLEN
+========================================= */
+:root {
+  --primary: #00c853;
+
+  /* Light Mode */
+  --bg: #ffffff;
+  --text: #111;
+  --card: #f2f2f2;
+  --splash-bg: #ffffff;
+  --splash-text: #333;
+  --splash-filter: brightness(1);
+}
+
+/* Dark Mode Variablen */
+body.dark {
+  --bg: #1a1a1a;
+  --text: #eeeeee;
+  --card: #2b2b2b;
+  --splash-bg: #1a1a1a;
+  --splash-text: #fff;
+  --splash-filter: brightness(0.75);
+}
+
+/* =========================================
+   SPLASH SCREEN
+========================================= */
+
+#splash {
+  position: fixed;
+  inset: 0;
+  background: var(--splash-bg);
+  color: var(--splash-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 99999;
+}
+
+#splash img {
+  filter: var(--splash-filter);
+}
+
+#splash-text {
+  font-size: 18px;
+  color: var(--splash-text);
+}
+
+/* =========================================
+   ALLGEMEINES
+========================================= */
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: background 0.25s, color 0.25s;
+}
+
+/* Cards */
+.settings-section {
+  background: var(--card);
+  color: var(--text);
+}
+
+
 /* -------- Dark Mode für Splash -------- */
 @media (prefers-color-scheme: dark) {
   #splash {
