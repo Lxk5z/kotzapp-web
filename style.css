@@ -1,3 +1,4 @@
+/* -------- Dark Mode für Splash -------- */
 @media (prefers-color-scheme: dark) {
   #splash {
     background: #1a1a1a;
@@ -10,7 +11,7 @@
   }
 }
 
-/* Splash Screen Style */
+/* -------- Standard (Light Mode) -------- */
 #splash {
   position: fixed;
   inset: 0;
@@ -21,6 +22,11 @@
   align-items: center;
   gap: 20px;
   z-index: 99999;
+}
+
+#splash-text {
+  font-size: 18px;
+  color: #333;
 }
 
 #splash-icon {
@@ -97,10 +103,10 @@ body {
     border-radius: 12px;
     margin-right: 8px;
 }
-.green { background: #1ea362; }
-.blue { background: #2478ff; }
-.red { background: #ff4b4b; }
-.yellow { background: #e6c926; }
+.green { background: #02D800; }
+.blue { background: #0302FF; }
+.red { background: #FC0000; }
+.yellow { background: #FFFF00; }
 
 /* Navigation unten */
 #navbar {
@@ -108,7 +114,7 @@ body {
     bottom: 0;
     width: 100%;
     height: 72px;
-    background: #222;
+    background: #474747;
     display: flex;
     border-top: 1px solid #444;
 }
@@ -122,19 +128,6 @@ body {
 }
 .nav-item:hover {
     background: #333;
-}
-
-:root {
-  --primary: #00c853;
-  --bg: #ffffff;
-  --text: #111;
-  --card: #f2f2f2;
-}
-
-body.dark {
-  --bg: #111;
-  --text: #eee;
-  --card: #1e1e1e;
 }
 
 body {
@@ -195,7 +188,7 @@ body {
 }
 
 body.dark {
-  --bg: #1a1a1a;
+  --bg: #333333;
   --text: #eeeeee;
-  --card: #2a2a2a;
+  --card: #5C5C5C;
 }
