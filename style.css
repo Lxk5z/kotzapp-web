@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background: #111;
+}
+
+/* THEME OVERLAY */
+#theme-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.25;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* APP LAYOUT */
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 28%;
+    background: #fff;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.search {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    margin-bottom: 20px;
+}
+
+/* CHAT LIST */
+.chat-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.chat-preview img {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+}
+
+/* BOTTOM MENU */
+.bottom-menu {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.bottom-menu button {
+    font-size: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* CHAT WINDOW */
+.chat {
+    flex: 1;
+    background: #f0efe9;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* HEADER */
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: #ededed;
+    border-bottom: 1px solid #ccc;
+}
+
+.chat-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+}
+
+/* MESSAGES */
+.messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    max-width: 60%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.incoming {
+    background: #fff;
+    align-self: flex-start;
+}
+
+.outgoing {
+    background: #dcf8c6;
+    align-self: flex-end;
+}
+
+/* INPUT BOX */
+.input-box {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    background: #ededed;
+    border-top: 1px solid #ccc;
+}
+
+.input-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+}
+
+.input-box button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
