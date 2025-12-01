@@ -1,3 +1,15 @@
+@media (prefers-color-scheme: dark) {
+  #splash {
+    background: #1a1a1a;
+  }
+  #splash img {
+    filter: brightness(0.8);
+  }
+  #splash-text {
+    color: #fff;
+  }
+}
+
 /* Splash Screen Style */
 #splash {
   position: fixed;
