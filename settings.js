@@ -1,3 +1,19 @@
+// Automatisch Darkmode je nach System, wenn User nichts anderes eingestellt hat
+window.addEventListener("load", () => {
+  const savedDark = localStorage.getItem("kotz_dark");
+  
+  if (savedDark === null) {
+    // System Dark Mode?
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (prefersDark) {
+      document.body.classList.add("dark");
+      localStorage.setItem("kotz_dark", true);
+      const toggle = document.getElementById("toggle-dark");
+      if (toggle) toggle.checked = true;
+    }
+  }
+});
+
 // Dark Mode
 document.getElementById("toggle-dark").addEventListener("change", (e) => {
   document.body.classList.toggle("dark", e.target.checked);
