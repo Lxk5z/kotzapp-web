@@ -111,3 +111,67 @@ body {
 .nav-item:hover {
     background: #333;
 }
+
+:root {
+  --primary: #00c853;
+  --bg: #ffffff;
+  --text: #111;
+  --card: #f2f2f2;
+}
+
+body.dark {
+  --bg: #111;
+  --text: #eee;
+  --card: #1e1e1e;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.settings-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.settings-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.settings-icon {
+  width: 90px;
+  height: 90px;
+  border-radius: 20%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.settings-section {
+  background: var(--card);
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #00000015;
+}
+
+.settings-section h2 {
+  margin-top: 0;
+  font-size: 18px;
+  border-bottom: 2px solid var(--primary);
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 16px;
+}
+
