@@ -1,263 +1,160 @@
-/* =========================================
-   THEME VARIABLEN
-========================================= */
-:root {
-  --primary: #00c853;
-
-  /* Light Mode */
-  --bg: #ffffff;
-  --text: #111;
-  --card: #f2f2f2;
-  --splash-bg: #ffffff;
-  --splash-text: #333;
-  --splash-filter: brightness(1);
-}
-
-/* Dark Mode Variablen */
-body.dark {
-  --bg: #1a1a1a;
-  --text: #eeeeee;
-  --card: #2b2b2b;
-  --splash-bg: #1a1a1a;
-  --splash-text: #fff;
-  --splash-filter: brightness(0.75);
-}
-
-/* =========================================
-   SPLASH SCREEN
-========================================= */
-
-#splash {
-  position: fixed;
-  inset: 0;
-  background: var(--splash-bg);
-  color: var(--splash-text);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  z-index: 99999;
-}
-
-#splash img {
-  filter: var(--splash-filter);
-}
-
-#splash-text {
-  font-size: 18px;
-  color: var(--splash-text);
-}
-
-/* =========================================
-   ALLGEMEINES
-========================================= */
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  transition: background 0.25s, color 0.25s;
-}
-
-/* Cards */
-.settings-section {
-  background: var(--card);
-  color: var(--text);
-}
-
-
-/* -------- Dark Mode für Splash -------- */
-@media (prefers-color-scheme: dark) {
-  #splash {
-    background: #1a1a1a;
-  }
-  #splash img {
-    filter: brightness(0.8);
-  }
-  #splash-text {
-    color: #fff;
-  }
-}
-
-/* -------- Standard (Light Mode) -------- */
-#splash {
-  position: fixed;
-  inset: 0;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  z-index: 99999;
-}
-
-#splash-text {
-  font-size: 18px;
-  color: #333;
-}
-
-#splash-icon {
-  width: min(160px, 40vw);
-  height: auto;
-  border-radius: 20%;
-}
-
-
-.loader {
-  border: 6px solid #eee;
-  border-top: 6px solid #00c853;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  animation: spin 1.1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.loading-text {
-  color: #444;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-body {
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
     background: #111;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    color: white;
-    overflow: hidden;
 }
 
-/* Screens */
-#screen-container {
+/* THEME OVERLAY */
+#theme-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.25;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* APP LAYOUT */
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 28%;
+    background: #fff;
+    border-right: 1px solid #ccc;
     padding: 20px;
-    padding-bottom: 90px;
-}
-
-.screen {
-    display: none;
-}
-
-.screen.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
-    font-size: 32px;
-    font-weight: 800;
+    font-size: 28px;
+    margin-bottom: 15px;
 }
 
-/* Buttons */
-.btn {
-    background: #222;
-    padding: 10px 20px;
-    border-radius: 12px;
-    border: 1px solid #555;
-    color: white;
-    font-size: 16px;
-    margin-top: 10px;
+.search {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    margin-bottom: 20px;
 }
 
-/* Theme Buttons */
-.color-bar {
-    margin-top: 10px;
-}
-.color {
-    padding: 8px 15px;
-    border-radius: 12px;
-    margin-right: 8px;
-}
-.green { background: #02D800; }
-.blue { background: #0302FF; }
-.red { background: #FC0000; }
-.yellow { background: #FFFF00; }
-
-/* Navigation unten */
-#navbar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 72px;
-    background: #474747;
-    display: flex;
-    border-top: 1px solid #444;
-}
-
-.nav-item {
+/* CHAT LIST */
+.chat-list {
     flex: 1;
-    text-align: center;
-    padding-top: 6px;
-    font-size: 14px;
+    overflow-y: auto;
+}
+
+.chat-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
     cursor: pointer;
 }
-.nav-item:hover {
-    background: #333;
+
+.chat-preview img {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
+/* BOTTOM MENU */
+.bottom-menu {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
 }
 
-.settings-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
+.bottom-menu button {
+    font-size: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-.settings-header {
-  text-align: center;
-  margin-bottom: 25px;
+/* CHAT WINDOW */
+.chat {
+    flex: 1;
+    background: #f0efe9;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
-.settings-icon {
-  width: 90px;
-  height: 90px;
-  border-radius: 20%;
-  object-fit: cover;
-  margin-bottom: 10px;
+/* HEADER */
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: #ededed;
+    border-bottom: 1px solid #ccc;
 }
 
-.settings-section {
-  background: var(--card);
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px #00000015;
+.chat-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
 }
 
-.settings-section h2 {
-  margin-top: 0;
-  font-size: 18px;
-  border-bottom: 2px solid var(--primary);
-  display: inline-block;
-  padding-bottom: 4px;
+/* MESSAGES */
+.messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.settings-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  font-size: 16px;
+.message {
+    max-width: 60%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 15px;
 }
 
-:root {
-  --primary: #00c853;
-  --bg: #ffffff;
-  --text: #111;
-  --card: #f2f2f2;
+.incoming {
+    background: #fff;
+    align-self: flex-start;
 }
 
-body.dark {
-  --bg: #333333;
-  --text: #eeeeee;
-  --card: #5C5C5C;
+.outgoing {
+    background: #dcf8c6;
+    align-self: flex-end;
+}
+
+/* INPUT BOX */
+.input-box {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    background: #ededed;
+    border-top: 1px solid #ccc;
+}
+
+.input-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+}
+
+.input-box button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }
