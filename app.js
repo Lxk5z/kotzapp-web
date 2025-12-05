@@ -1,13 +1,22 @@
-// Screen wechseln
-function openScreen(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+function setThemeColor() {
+    const color = prompt("Welche Farbe? (z.B. #00ffcc oder red)");
+    if (!color) return;
+
+    document.getElementById("theme-overlay").style.background = color;
 }
 
-// Standard-Screen
-openScreen("screen-home");
+function setThemeImage() {
+    const url = prompt("Bild-URL eingeben:");
+    if (!url) return;
 
-// Theme ändern
-function setTheme(color) {
-    document.body.style.background = color;
+    const el = document.getElementById("theme-overlay");
+    el.style.backgroundImage = `url(${url})`;
+}
+
+function setThemeGif() {
+    const url = prompt("GIF-URL eingeben:");
+    if (!url) return;
+
+    const el = document.getElementById("theme-overlay");
+    el.style.backgroundImage = `url(${url})`;
 }
