@@ -1,0 +1,275 @@
+/* =========================================
+   Navigation Bar
+========================================= */
+
+body {
+  background-color: var(--background-color);
+}
+
+nav {
+  background-color: var(--menu-color);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 85%;
+  height: var(--navbar-height);
+  box-shadow: 0px -5px 7px var(--menu-color-light);
+}
+
+nav ul {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+nav li {
+  flex: 1;
+  height: 100%;
+  text-align: center;
+  position:relative;
+}
+
+nav ul a {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+nav li:hover {
+  background: var(--menu-color-light);
+  box-shadow: 0 0 5px var(--accent-color);
+  animation: glowPulse 2s infinite ease-in-out;
+}
+
+nav li:hover a span {
+color: var(--accent-color) !important;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--text-color); /* Standardfarbe */
+}
+
+nav li:hover .nav-icon {
+  fill: var(--accent-color); /* Hoverfarbe */
+}
+
+.circle-image {
+      width: clamp(30px, 10vw, 90px);              /* Größe des Kreises */
+      height: clamp(30px, 10vw, 90px);    ;
+      border-radius: 50%;        /* macht es rund */
+      display: flex;
+      position: fixed;
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--menu-color);
+      margin: 10px;  
+      padding: 2%;
+      bottom: calc(var(--navbar-height) + 3px);
+      right: 10px;
+      transition: box-shadow 0.3s easy-in-out;
+    }
+
+    .circle-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;         /* Bild füllt Kreis aus */
+      transition: transform 0.8s ease-in-out;
+    }
+
+.circle-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out; /* Dauer + langsamer Start/Ende */
+}
+
+.circle-image:hover img {
+  transform: rotate(180deg) scale(1.2);
+}
+
+.circle-image:hover {
+  background-color: var(--menu-color-light);
+  box-shadow: 0 0 5px var(--accent-color);
+  animation: glowPulse 2s infinite ease-in-out;
+}
+
+/* Keyframes für den wandernden Glow */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 5px var(--accent-color),
+                0 0 20px var(--accent-color-dark);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--accent-color-dark),
+                0 0 20px var(--accent-color);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--accent-color),
+                0 0 20px var(--accent-color-dark);
+  }
+}
+
+
+
+/* =========================================
+   Chats Header
+========================================= */
+
+
+
+.chat-header {
+  align-items: center;
+  display: inline-flex;
+  font-size: 70px;
+  font-weight: bold;
+  color: var(--text-color);
+  text-decoration: none;
+  
+  background-image: url("images/menu-background.gif");
+  background-size: cover;        /* GIF füllt den Bereich */
+  background-position: center;   /* zentriert */
+
+  box-shadow: 0 0 10px var(--menu-color);
+  width: 100%;
+  padding-left: 10px;
+  border: none;
+}
+
+a img {
+  height: 70px;
+  padding: 10px;
+}
+
+a:hover span {
+  color: var(--accent-color) !important;
+}
+
+div div:hover {
+  background-color: var(--accent-color);
+}
+
+/* =========================================
+   Chats Buttons
+========================================= */
+
+.right-button {
+  background-color: var(--menu-color);
+  padding: 4px;
+  margin: 10px;
+  right: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.left-button {
+  background-color: var(--menu-color);
+  padding: 4px;
+  margin: 10px;
+  left: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.more-icons {
+  background-color: var(--menu-color-dark);
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  right: 0;
+  align-items: center;
+
+  position: sticky;
+  top: 0;            /* bleibt am oberen Rand kleben */
+  z-index: 1000;     /* damit es über dem Inhalt liegt */
+  padding: 10px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: var(--menu-color);       /* Hintergrund */
+  border: 2px solid var(--menu-color-dark);  /* Rahmen */
+  border-radius: 10px;
+  padding: 6px 10px;
+  width: 300px;                              /* Breite anpassen */
+}
+
+.search-icon {
+  flex-shrink: 0;
+  margin-right: 8px;
+  fill: var(--text-color-light);              /* Icon-Farbe */
+}
+
+.search-container input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-color-light);             /* Textfarbe */
+  font-size: 16px;
+  width: 100%;
+}
+
+.search-container input::placeholder {
+  color: var(--text-color-dark);             /* Platzhalterfarbe */
+}
+
+/* Chat-Liste */
+.chat-list {
+  padding: 10px;
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--menu-color, #fff);
+  border: 1px solid var(--menu-color-dark, #ccc);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.chat-item:hover {
+  background-color: var(--menu-color-light, #eee);
+}
+
+.chat-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.chat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-name {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.chat-message {
+  font-size: 14px;
+  color: var(--text-color-dark, #666);
+}
