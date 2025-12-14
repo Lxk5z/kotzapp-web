@@ -2,7 +2,7 @@
 function getRandomDefaultAvatar(userId) {
   // 📘 Klassenchat bekommt immer ein festes Bild
   if (userId === "CLASS") {
-    return "/kotzapp-web/images/users/user10.png";
+    return "/kotzapp-web/images/users/class.png";
   }
 
   let hash = 0;
