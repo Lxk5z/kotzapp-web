@@ -2,7 +2,7 @@
 function getRandomDefaultAvatar(userId) {
   // 📘 Klassenchat bekommt immer ein festes Bild
   if (userId === "CLASS") {
-    return "/images/users/user10.png";
+    return "/kotzapp-web/images/users/user10.png";
   }
 
   let hash = 0;
@@ -11,7 +11,7 @@ function getRandomDefaultAvatar(userId) {
   }
 
   const index = (hash % 10) + 1; // 1–10
-  return `/images/users/user${index}.png`;
+  return `/kotzapp-web/images/users/user${index}.png`;
 }
 
 // 💬 Chats laden & anzeigen
@@ -50,7 +50,7 @@ async function loadChats() {
 
       if (isOnline) {
         const onlineDot = document.createElement("img");
-        onlineDot.src = "/images/users/online.png";
+        onlineDot.src = "/kotzapp-web/images/users/online.png";
         onlineDot.className = "chat-online-dot";
         avatarWrapper.appendChild(onlineDot);
       }
@@ -97,7 +97,7 @@ async function loadChats() {
       if (typeof chat.background === "number") {
   item.classList.add("has-background");
   item.style.backgroundImage =
-    `url(/images/users/backgrounds/background${chat.background}.png)`;
+    `url(/kotzapp-web/images/users/backgrounds/background${chat.background}.png)`;
   item.style.backgroundSize = "cover";
   item.style.backgroundPosition = "bottom center";
 }
