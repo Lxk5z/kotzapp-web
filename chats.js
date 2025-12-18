@@ -3,7 +3,7 @@
 // ===================================
 const DEBUG_LOADING_DELAY = 0; // in ms (Ladebalken sichtbar machen)
 const ONLINE_PING_INTERVAL = 13000; // 13 Sekunden
-const CURRENT_USER_ID = "U05"; // ⬅️ deine User-ID
+const CURRENT_USER_ID = "U01"; // ⬅️ deine User-ID
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -73,7 +73,7 @@ function hideLoadingBar() {
 // ===================================
 function getRandomDefaultAvatar(userId) {
   if (userId === "CLASS") {
-    return "/images/users/class.png";
+    return "/kotzapp-web/images/users/class.png";
   }
 
   let hash = 0;
@@ -82,7 +82,7 @@ function getRandomDefaultAvatar(userId) {
   }
 
   const index = (hash % 10) + 1;
-  return `/images/users/user${index}.png`;
+  return `/kotzapp-web/images/users/user${index}.png`;
 }
 
 // ===================================
@@ -163,7 +163,7 @@ function updateOnlineDots() {
 
     if (shouldBeOnline && !existingDot) {
       const dot = document.createElement("img");
-      dot.src = "/images/users/online.png";
+      dot.src = "/kotzapp-web/images/users/online.png";
       dot.className = "chat-online-dot";
       avatarWrapper.appendChild(dot);
     }
@@ -190,8 +190,8 @@ function createChatItem(chat) {
 
   item.innerHTML = `
     <div class="chat-avatar-wrapper">
-      <img class="chat-avatar" src="${chat.profile_image || "/images/users/default.png"}">
-      <img class="chat-online-dot hidden" src="/images/online-dot.svg">
+      <img class="chat-avatar" src="${chat.profile_image || "/kotzapp-web/images/users/default.png"}">
+      <img class="chat-online-dot hidden" src="/kotzapp-web/images/online-dot.svg">
     </div>
 
     <div class="chat-content">
@@ -308,7 +308,7 @@ username.textContent =
       if (typeof chat.background === "number") {
         item.classList.add("has-background");
         item.style.backgroundImage =
-          `url(/images/users/backgrounds/background${chat.background}.png)`;
+          `url(/kotzapp-web/images/users/backgrounds/background${chat.background}.png)`;
         item.style.backgroundSize = "cover";
         item.style.backgroundPosition = "center";
       }
