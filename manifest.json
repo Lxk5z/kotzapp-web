@@ -3,7 +3,7 @@
   "short_name": "KotzApp",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "icon-192.PNG",
       "sizes": "192x192",
       "type": "image/png"
     },
