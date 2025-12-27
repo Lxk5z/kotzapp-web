@@ -1,0 +1,325 @@
+body, html {
+  background-color: var(--background-color);
+}
+
+.rang-admin { color: #ff4d4d; }
+.rang-moderator { color: #4da6ff; }
+.rang-donator { color: #ffd700; }
+.rang-donatorplus { color: #ff9f43; }
+.rang-apex { color: #b366ff; }
+
+/* =========================================
+   Navigation Bar
+========================================= */
+
+body {
+  background-color: var(--background-color);
+}
+
+nav {
+  background-color: var(--menu-color);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  z-index: 1000; 
+  justify-content: space-between;
+  align-items: center;
+  opacity: 95%;
+  height: var(--navbar-height);
+  box-shadow: 0px -5px 7px var(--menu-color-light);
+  font-family: Arial, sans-serif;
+}
+
+nav ul {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  flex: 1;
+  height: 100%;
+  text-align: center;
+  position:relative;
+}
+
+nav ul a {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+nav li:hover {
+  background: var(--menu-color-light);
+  box-shadow: 0 0 5px var(--accent-color);
+  animation: glowPulse 2s infinite ease-in-out;
+}
+
+nav li:hover a span {
+color: var(--accent-color) !important;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--text-color); /* Standardfarbe */
+}
+
+nav li:hover .nav-icon {
+  fill: var(--accent-color); /* Hoverfarbe */
+}
+
+/* =========================================
+   NAVBAR – AKTIVE SEITE
+========================================= */
+
+nav li.active {
+  background-color: var(--menu-color-light);
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 5px var(--accent-color),
+                0 0 15px var(--accent-color-dark);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--accent-color),
+                0 0 25px var(--accent-color-dark);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--accent-color),
+                0 0 15px var(--accent-color-dark);
+  }
+}
+
+
+
+
+
+/* =========================================
+   SETTINGS HEADER
+========================================= */
+
+.settings-header {
+  position: relative;
+  padding: 10px 16px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--menu-color);
+}
+
+.settings-header-center {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.settings-logo {
+  height: 42px;
+  width: auto;
+}
+
+.settings-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--text-color);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+
+/* =========================================
+   PROFILE SECTION
+========================================= */
+
+/* =========================================
+   PROFILE CONTAINER – BASIS
+========================================= */
+
+.profile-container {
+  width: 100%;
+  
+}
+
+.profile-inner {
+  position: relative;
+  margin: 30px auto 120px;
+  padding: 14px;
+
+  display: grid;
+  gap: 4px;
+}
+
+/* =========================================
+   ✏️ EDIT BUTTON (IMMER OBEN RECHTS)
+========================================= */
+
+.settings-edit-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.settings-edit-btn svg {
+  width: clamp(30px, 6vw, 50px);
+  height: clamp(30px, 6vw, 50px);
+  fill: var(--text-color-light);
+  transition: fill 0.2s ease, transform 0.15s ease;
+}
+
+.settings-edit-btn:hover svg {
+  fill: var(--accent-color);
+  transform: scale(1.1);
+}
+
+/* =========================================
+   PROFILE ELEMENTE – BASIS
+========================================= */
+
+.profile-picture {
+  width: clamp(80px, 22vw, 150px);
+  height: clamp(80px, 22vw, 150px);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 3px 10px var(--menu-color);
+  margin: 0 auto;
+}
+
+.profile-username {
+  font-size: clamp(22px, 5vw, 46px);
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.profile-rang {
+  font-size: clamp(14px, 3.5vw, 26px);
+  font-weight: bold;
+}
+
+.profile-bio {
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: var(--text-color-light);
+  margin-top: 10px;
+}
+
+/* =========================================
+   🛠️ BEARBEITEN BUTTON
+========================================= */
+
+.edit-button {
+  width: 100%;
+  margin-top: 30px;
+
+  background: none;
+  border-top: 2px solid var(--menu-color-dark);
+  border-bottom: 2px solid var(--menu-color-dark);
+  border-left: none;
+  border-right: none;
+
+  padding: 14px 0;
+
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+.edit-button:hover {
+  background: var(--menu-color-dark);
+  border-top: 2px solid var(--menu-color-light);
+  border-bottom: 2px solid var(--menu-color-light);
+  color: var(--text-color);
+}
+
+/* =========================================
+   📱 MOBILE (Standard)
+========================================= */
+.profile-inner {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "image"
+    "name"
+    "rang"
+    "bio"
+    "edit";
+  text-align: center;
+}
+
+.profile-picture { grid-area: image; margin: 0 auto; }
+.profile-username { grid-area: name; }
+.profile-rang { grid-area: rang; }
+.profile-bio { grid-area: bio; }
+.edit-button { grid-area: edit; }
+
+/* =========================================
+   📱📱 TABLET (ab 800px)
+========================================= */
+@media (min-width: 800px) {
+  .profile-inner {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "image name"
+      "image rang"
+      "image bio"
+      "edit  edit";
+
+    column-gap: 20px;
+    text-align: left;
+    align-items: start;
+  }
+
+  .profile-picture {
+    margin: 0;
+    justify-self: start;
+  }
+}
+
+/* =========================================
+   🖥️ DESKTOP (ab 1200px)
+========================================= */
+@media (min-width: 1200px) {
+
+  .profile-username,
+  .profile-rang {
+    align-self: center;
+  }
+
+  .profile-bio {
+    align-self: center;
+  }
+
+  .profile-inner {
+    grid-template-columns: auto 1fr 1.3fr;
+    grid-template-areas:
+      "image name bio"
+      "image rang bio"
+      "edit  edit edit";
+
+    column-gap: 20px;
+  }
+
+  .profile-bio {
+    margin-top: 0;
+  }
+}
