@@ -660,9 +660,9 @@ body {
 ========================= */
 
 .chat-dropdown {
-  position: absolute;
-  top: 140px;
-  left: 12px;
+  position: fixed; 
+  top: 0; /* wird per JS überschrieben */ 
+  left: 0; /* wird per JS überschrieben */
   min-width: 200px;
   background: var(--menu-color-dark-extreme);
   border-radius: 14px;
