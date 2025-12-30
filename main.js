@@ -1,8 +1,9 @@
-const CDN_BASE = "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@main";
+window.CDN_BASE = "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web";
+
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register(`${CDN_BASE}/sw.js`)  
+    .register(`${CDN_BASE}/sw.js`)
     .then((reg) => {
       console.log("✅ SW registriert:", reg.scope);
     })
