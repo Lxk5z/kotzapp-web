@@ -518,7 +518,12 @@ leftButton.addEventListener("click", (e) => {
   e.stopPropagation();
 
   const rect = leftButton.getBoundingClientRect();
-  dropdown.style.left = rect.left + "px";
+const moreIcons = document.querySelector(".more-icons");
+const headerOffset = moreIcons.getBoundingClientRect().bottom;
+
+dropdown.style.left = rect.left + "px";
+dropdown.style.top = headerOffset + "px";
+
 
   dropdown.classList.toggle("open");
 });
