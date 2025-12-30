@@ -202,7 +202,6 @@ if (favoriteIds.has(chat.benutzer_id)) {
   item.innerHTML = `
   <div class="chat-avatar-wrapper">
     <img class="chat-avatar" src="${chat.profile_image || `${CDN_BASE}/images/users/default.png`}">
-    <img class="chat-online-dot hidden" src="${CDN_BASE}/images/online-dot.svg">
   </div>
 
   <div class="chat-content">
