@@ -1,5 +1,6 @@
 const CURRENT_USER_ID = "U01"; // ⬅️ später dynamisch
 const DEBUG_LOADING_DELAY = 0; // in ms, zu Testzwecken
+const CDN_BASE = "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@latest"
 
 document.addEventListener("DOMContentLoaded", () => {
   loadUserProfile();
@@ -112,4 +113,5 @@ if (typeof user.background === "number") {
     hideLoadingBar(); // 👈 IMMER ausblenden
   }
 }
+
 
