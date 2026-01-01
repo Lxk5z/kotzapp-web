@@ -115,6 +115,21 @@ input, textarea {
   }
 }
 
+/* Globale Farben*/
+:root {
+  --rank-color-donator: #523c00;
+  --rank-color-background-donator: #af8100;
+  --rank-color-donatorplus: #00747f;
+  --rank-color-background-donatorplus: #00d2e5;
+  --rank-color-moderator: #414141;
+  --rank-color-background-moderator: #909090;
+  --rank-color-admin: #fff;
+  --rank-color-background-admin: #e53935; 
+  --rank-color-apex: #5e0061;
+  --rank-color-background-apex: #e600ee;
+}
+
+
 *{
   margin: 0;
   padding: 0;
