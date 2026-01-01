@@ -491,11 +491,45 @@ function playFavoriteBurst(button) {
   setTimeout(() => burst.remove(), 450);
 }
 
+const searchContainer = document.querySelector(".search-container");
+
+function updateSearchState() {
+  const hasText = searchInput.value.trim().length > 0;
+  searchContainer.classList.toggle("has-text", hasText);
+}
+
+// beim Tippen
+searchInput.addEventListener("input", updateSearchState);
+
+// beim X-Klick (weil du dort value leerst)
+clearBtn.addEventListener("click", updateSearchState);
+
+// Initialzustand beim Laden
+updateSearchState();
+
 // ===================================
-// ☰ DROPDOWN: Alle Chats / Favoriten
+// ☰ DROPDOWN: Alle Chats / Favoriten (FINAL)
 // ===================================
 
-let currentChatView = "all"; // "all" | "favorites"
+function closeDropdown() {
+  dropdown.classList.remove("open");
+}
+
+document.addEventListener("scroll", closeDropdown, {
+  passive: true,
+  capture: true
+});
+
+document.addEventListener("touchmove", closeDropdown, { passive: true });
+
+const chatList = document.getElementById("chatList");
+
+if (chatList) {
+  chatList.addEventListener("scroll", closeDropdown, { passive: true });
+}
+
+
+let currentChatView = "all";
 
 const leftButton = document.querySelector(".left-button");
 
@@ -504,44 +538,53 @@ const dropdown = document.createElement("div");
 dropdown.className = "chat-dropdown";
 dropdown.innerHTML = `
   <div class="chat-dropdown-item active" data-view="all">
-    >  Alle Chats
+    > Alle Chats
   </div>
   <div class="chat-dropdown-item" data-view="favorites">
-    >  Favoriten
+    > Favoriten
   </div>
 `;
 
 document.body.appendChild(dropdown);
+
+// 🔧 Position immer NEU berechnen
+function positionDropdown() {
+  const rect = leftButton.getBoundingClientRect();
+
+  dropdown.style.left = rect.left + "px";
+  dropdown.style.top  = rect.bottom + 8 + "px"; // kleiner Abstand
+}
 
 // Toggle Dropdown
 leftButton.addEventListener("click", (e) => {
   e.stopPropagation();
 
   const rect = leftButton.getBoundingClientRect();
-const moreIcons = document.querySelector(".more-icons");
-const headerOffset = moreIcons.getBoundingClientRect().bottom;
 
-dropdown.style.left = rect.left + "px";
-dropdown.style.top = headerOffset + "px";
-
+  dropdown.style.position = "fixed";
+  dropdown.style.top = rect.bottom + 8 + "px";
+  dropdown.style.left = rect.left + "px";
 
   dropdown.classList.toggle("open");
 });
+
+// Scroll → Dropdown schließen (wichtig!)
+window.addEventListener("scroll", () => {
+  dropdown.classList.remove("open");
+}, { passive: true });
 
 // Klick außerhalb → schließen
 document.addEventListener("click", () => {
   dropdown.classList.remove("open");
 });
 
-// Auswahl im Dropdown
+// Auswahl
 dropdown.addEventListener("click", (e) => {
   const item = e.target.closest(".chat-dropdown-item");
   if (!item) return;
 
-  const view = item.dataset.view;
-  currentChatView = view;
+  currentChatView = item.dataset.view;
 
-  // Active UI
   dropdown.querySelectorAll(".chat-dropdown-item").forEach(i =>
     i.classList.remove("active")
   );
@@ -550,6 +593,13 @@ dropdown.addEventListener("click", (e) => {
   applyChatFilter();
   dropdown.classList.remove("open");
 });
+
+// 🔄 Falls gescrollt wird → neu positionieren (nice UX)
+window.addEventListener("scroll", () => {
+  if (dropdown.classList.contains("open")) {
+    positionDropdown();
+  }
+}, { passive: true });
 
 // ===================================
 // ⭐ Filter anwenden
