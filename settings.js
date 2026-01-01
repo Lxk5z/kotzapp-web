@@ -1,6 +1,5 @@
 const CURRENT_USER_ID = "U01"; // ⬅️ später dynamisch
 const DEBUG_LOADING_DELAY = 0; // in ms, zu Testzwecken
-const CDN_BASE = "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@latest"
 
 document.addEventListener("DOMContentLoaded", () => {
   loadUserProfile();
@@ -30,12 +29,9 @@ async function loadUserProfile() {
   await delay(DEBUG_LOADING_DELAY);
 
   try {
-    const res = await fetch(
-      `https://kotzapp.onrender.com/user/get/${CURRENT_USER_ID}`
-    );
+    const res = await fetch(`https://kotzapp.onrender.com/user/get/${CURRENT_USER_ID}`);
 
     if (!res.ok) throw new Error("Profil konnte nicht geladen werden");
-  }
 
     const data = await res.json();
     const user = Array.isArray(data) ? data[0] : data;
@@ -113,5 +109,3 @@ if (typeof user.background === "number") {
     hideLoadingBar(); // 👈 IMMER ausblenden
   }
 }
-
-
