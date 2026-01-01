@@ -137,15 +137,20 @@ a:hover span {
   color: var(--accent-color) !important;
 }
 
+@media (hover: hover) and (pointer: fine) {}
 .more-icons div:hover {
-  background-color: var(--accent-color);
-}
-.more-icons div:hover input {
-  color: var(--text-color);
-}
+    background-color: var(--accent-color);
+  }
+
+  .more-icons div:hover input::placeholder {
+    color: var(--text-color);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
 .more-icons div:hover svg {
   fill: var(--text-color);
 }
+  }
 
 /* =========================================
    Chats Buttons
@@ -206,13 +211,13 @@ a:hover span {
   border: none;
   outline: none;
   background: transparent;
-  color: var(--text-color-hell);             /* Textfarbe */
+  color: var(--text-color);             /* Textfarbe */
   font-size: 16px;
   width: 100%;
 }
 
 .search-container input::placeholder {
-  color: var(--text-color-dark);             /* Platzhalterfarbe */
+  color: var(--text-color-hell);             /* Platzhalterfarbe */
 }
 
 .search-clear {
@@ -568,28 +573,28 @@ body {
 ================================ */
 
 .rank-donator {
-  background: #af8100;
-  color: #523c00;
+  background: var(--rank-color-background-donator);
+  color: var(--rank-color-donator);
 }
 
 .rank-donatorplus {
-  background: #00d2e5;
-  color: #00747f;
+  background: var(--rank-color-background-donatorplus);
+  color: var(--rank-color-donatorplus);
 }
 
 .rank-moderator {
-  background: #909090;
-  color: #414141;
+  background: var(--rank-color-background-moderator);
+  color: var(--rank-color-moderator);
 }
 
 .rank-admin {
-  background: #e53935;
-  color: #fff;
+  background: var(--rank-color-background-admin);
+  color: var(--rank-color-admin);
 }
 
 .rank-apex {
-  background: #e600ee;
-  color: #5e0061;
+  background: var(--rank-color-background-apex);
+  color: var(--rank-color-apex);
 }
 
 /* =========================
@@ -660,20 +665,19 @@ body {
 ========================= */
 
 .chat-dropdown {
-  position: fixed; 
-  top: 0; /* wird per JS überschrieben */ 
-  left: 0; /* wird per JS überschrieben */
+  position: fixed; /* WICHTIG */
   min-width: 200px;
+
   background: var(--menu-color-dark-extreme);
   border-radius: 14px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.75);
   padding: 6px;
-  z-index: 1000;
+  z-index: 2000;
 
   opacity: 0;
-  transform: translateY(-10px) scale(0.97);
+  transform: translateY(-8px) scale(0.97);
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
 .chat-dropdown.open {
