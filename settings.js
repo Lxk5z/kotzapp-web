@@ -34,6 +34,7 @@ async function loadUserProfile() {
     );
 
     if (!res.ok) throw new Error("Profil konnte nicht geladen werden");
+  }
 
     const data = await res.json();
     const user = Array.isArray(data) ? data[0] : data;
@@ -111,3 +112,4 @@ if (typeof user.background === "number") {
     hideLoadingBar(); // 👈 IMMER ausblenden
   }
 }
+
