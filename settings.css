@@ -2,12 +2,6 @@ body, html {
   background-color: var(--background-color);
 }
 
-.rang-admin { color: #ff4d4d; }
-.rang-moderator { color: #4da6ff; }
-.rang-donator { color: #ffd700; }
-.rang-donatorplus { color: #ff9f43; }
-.rang-apex { color: #b366ff; }
-
 /* =========================================
    Navigation Bar
 ========================================= */
@@ -107,14 +101,34 @@ nav li.active {
 
 
 
+/* ===============================
+   Scrollbar ausblenden (kein Layout Shift)
+================================ */
 
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* Optional: verhindert Mini-Ruckler */
+body {
+  overflow-y: scroll;
+}
 
 /* =========================================
    SETTINGS HEADER
 ========================================= */
 
 .settings-header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 999999;
   padding: 10px 16px 10px;
   display: flex;
   justify-content: center;
@@ -140,6 +154,37 @@ nav li.active {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ===============================
+   Loading Bar
+================================ */
+
+.loading-bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--menu-color-dark-extreme);
+  overflow: hidden;
+  display: none;
+  z-index: 1001;
+}
+
+.loading-bar-inner {
+  width: 40%;
+  height: 100%;
+  background-color: var(--accent-color);
+  animation: loadingMove 1.2s infinite ease-in-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes loadingMove {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(75%); }
+  100% { transform: translateX(250%); }
+}
 
 
 
@@ -208,20 +253,108 @@ nav li.active {
 }
 
 .profile-username {
-  font-size: clamp(22px, 5vw, 46px);
+  font-size: clamp(22px, 5.5vw, 46px);
   font-weight: bold;
   color: var(--text-color);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .profile-rang {
-  font-size: clamp(14px, 3.5vw, 26px);
-  font-weight: bold;
+  display: inline-block;
+  width: fit-content;
+
+  justify-self: center;   /* 📱 Mobile */
+  align-self: center;
+
+  font-size: clamp(24px, 3.5vw, 34px);
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1;
+  white-space: nowrap;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .profile-bio {
   font-size: clamp(14px, 3.5vw, 18px);
-  color: var(--text-color-light);
+  color: var(--text-color-hell);
   margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================================
+   🎨 PROFILE BACKGROUND WRAPPER
+========================================= */
+
+.profile-bg-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-with-bg {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===============================
+   🌄 BACKGROUND LAYER
+================================ */
+
+.profile-background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.glass {
+  background: color-mix(in srgb, var(--background-color) 70%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  padding: 6px 12px;
+  border-radius: 10px;
+
+  width: fit-content;
+  margin: 6px auto;
+}
+
+/* ===============================
+   👤 PROFIL INHALT ÜBER BG
+================================ */
+
+.profile-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================
+   Rangfarben
+========================================= */
+.rang-donator {
+  background: var(--rank-color-background-donator);
+  color: var(--rank-color-donator);
+}
+
+.rang-donatorplus {
+  background: var(--rank-color-background-donatorplus);
+  color: var(--rank-color-donatorplus);
+}
+
+.rang-moderator {
+  background: var(--rank-color-background-moderator);
+  color: var(--rank-color-moderator);
+}
+
+.rang-admin {
+  background: var(--rank-color-background-admin);
+  color: var(--rank-color-admin);
+}
+
+.rang-apex {
+  background: var(--rank-color-background-apex);
+  color: var(--rank-color-apex);
 }
 
 /* =========================================
@@ -230,9 +363,8 @@ nav li.active {
 
 .edit-button {
   width: 100%;
-  margin-top: 30px;
 
-  background: none;
+  background: color-mix(in srgb, var(--background-color) 70%, transparent);
   border-top: 2px solid var(--menu-color-dark);
   border-bottom: 2px solid var(--menu-color-dark);
   border-left: none;
@@ -246,7 +378,7 @@ nav li.active {
 }
 
 .edit-button:hover {
-  background: var(--menu-color-dark);
+  background: color-mix(in srgb, var(--menu-color-dark) 75%, transparent);
   border-top: 2px solid var(--menu-color-light);
   border-bottom: 2px solid var(--menu-color-light);
   color: var(--text-color);
@@ -293,6 +425,22 @@ nav li.active {
     margin: 0;
     justify-self: start;
   }
+  .profile-rang {
+    justify-self: start;  /* ⬅️ links */
+  }
+
+  .profile-inner.no-rang {
+    grid-template-areas:
+      "image name"
+      "image bio"
+      "edit  edit";
+  }
+  .profile-username.no-rang {
+    margin-top: 25px; /* 👈 fein, elegant */
+  }
+  .glass {
+    margin-left: 0;
+  }
 }
 
 /* =========================================
@@ -321,5 +469,20 @@ nav li.active {
 
   .profile-bio {
     margin-top: 0;
+  }
+  .profile-rang {
+    justify-self: start;  /* ⬅️ links */
+  }
+
+  .profile-inner.no-rang {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "image name"
+      "image bio"
+      "edit  edit";
+  }
+
+  .profile-inner.no-rang .profile-bio {
+    align-self: start;
   }
 }
