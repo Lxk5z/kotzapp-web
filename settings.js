@@ -32,7 +32,9 @@ async function loadUserProfile() {
   try {
     const res = await fetch(`https://kotzapp.onrender.com/user/get/${CURRENT_USER_ID}`);
 
-    if (!res.ok) throw new Error("Profil konnte nicht geladen werden");
+    if (!res.ok) {
+      throw new Error("Profil konnte nicht geladen werden");
+    }
 
     const data = await res.json();
     const user = Array.isArray(data) ? data[0] : data;
@@ -102,7 +104,7 @@ const bgEl = document.getElementById("profileBackground");
 
 if (typeof user.background === "number") {
   bgEl.style.backgroundImage =
-    `url(${CDN}/images/users/backgrounds/background${user.background}.png)`;
+    `url(${CDN}/images/users/backgrounds/background${user.background}.png)`
 } else {
   bgEl.style.background = "linear-gradient(135deg, #111, #000)";
 }
