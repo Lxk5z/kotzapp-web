@@ -1,6 +1,8 @@
 const CURRENT_USER_ID = "U01"; // ⬅️ später dynamisch
 const DEBUG_LOADING_DELAY = 0; // in ms, zu Testzwecken
 const CDN = window.CDN_BASE;
+const API_BASE = "https://kotzapp.onrender.com";
+const USER_GET = "/user/get/";
 
 document.addEventListener("DOMContentLoaded", () => {
   loadUserProfile();
@@ -30,11 +32,10 @@ async function loadUserProfile() {
   await delay(DEBUG_LOADING_DELAY);
 
   try {
-    const res = await fetch(`https://kotzapp.onrender.com/user/get/${CURRENT_USER_ID}`);
+    const url = API_BASE + USER_GET + CURRENT_USER_ID;
+    const res = await fetch(url);
 
-    if (!res.ok) {
-      throw new Error("Profil konnte nicht geladen werden");
-    }
+    if (!res.ok) throw new Error("Profil konnte nicht geladen werden");
 
     const data = await res.json();
     const user = Array.isArray(data) ? data[0] : data;
