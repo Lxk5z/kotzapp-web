@@ -4,10 +4,6 @@ const CDN = window.CDN_BASE;
 const API_BASE = "https://kotzapp.onrender.com";
 const USER_GET = "/user/get/";
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadUserProfile();
-});
-
 /* Loading Bar Hilfsfunktionen */
 function showLoadingBar() {
   document.getElementById("loading-bar")?.classList.remove("hidden");
@@ -116,3 +112,5 @@ if (typeof user.background === "number") {
     hideLoadingBar(); // 👈 IMMER ausblenden
   }
 }
+
+loadUserProfile();
