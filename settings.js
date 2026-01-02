@@ -45,7 +45,10 @@ async function loadUserProfile() {
     /* =========================
        FORMATIERTER NAME
        ========================= */
-    usernameEl.textContent = user.formatierter_name ?? "Unbekannt";
+    usernameEl.textContent =
+  user.formatierter_name !== null && user.formatierter_name !== undefined
+    ? user.formatierter_name
+    : "Unbekannt";
 
     /* =========================
        BIO
