@@ -1,5 +1,6 @@
 const CURRENT_USER_ID = "U01"; // ⬅️ später dynamisch
 const DEBUG_LOADING_DELAY = 0; // in ms, zu Testzwecken
+const CDN = window.CDN_BASE;
 
 document.addEventListener("DOMContentLoaded", () => {
   loadUserProfile();
@@ -49,8 +50,8 @@ async function loadUserProfile() {
     /* =========================
        BIO
        ========================= */
-    bioEl.textContent =
-      user.description && user.description.trim() !== ""
+    bioEl.textContent = 
+    user.description && user.description.trim() !== ""
         ? user.description
         : "Keine Beschreibung vorhanden.";
 
@@ -98,7 +99,7 @@ const bgEl = document.getElementById("profileBackground");
 
 if (typeof user.background === "number") {
   bgEl.style.backgroundImage =
-    `url(${CDN_BASE}/images/users/backgrounds/background${user.background}.png)`;
+    `url(${CDN}/images/users/backgrounds/background${user.background}.png)`;
 } else {
   bgEl.style.background = "linear-gradient(135deg, #111, #000)";
 }
