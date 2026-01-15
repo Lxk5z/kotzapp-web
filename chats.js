@@ -5,9 +5,7 @@ const DEBUG_LOADING_DELAY = 0; // in ms (Ladebalken sichtbar machen)
 const ONLINE_PING_INTERVAL = 13000; // 13 Sekunden
 const CURRENT_USER_ID = "U01"; // ⬅️ deine User-ID
 
-const CDN_BASE =
-  window.CDN_BASE ||
-  "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@712e3f2";
+const CDN_BASE = window.CDN_BASE;
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
