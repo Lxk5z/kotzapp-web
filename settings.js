@@ -1,6 +1,6 @@
 const CURRENT_USER_ID = "U01"; // ⬅️ später dynamisch
 const DEBUG_LOADING_DELAY = 0; // in ms, zu Testzwecken
-const CDN = window.CDN_BASE || "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@712e3f2";
+const CDN = window.CDN_BASE;
 const API_BASE = "https://kotzapp.onrender.com";
 const USER_GET = "/user/get/";
 
