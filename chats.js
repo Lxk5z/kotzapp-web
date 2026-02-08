@@ -7,7 +7,7 @@ const CURRENT_USER_ID = "U01"; // ⬅️ deine User-ID
 
 const CDN_BASE =
   window.CDN_BASE ||
-  "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@ec29ec5";
+  "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@latest";
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
