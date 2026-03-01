@@ -22,7 +22,7 @@ const ONLINE_PING_INTERVAL = 13000; // 13 Sekunden
 
 const CDN_BASE =
   window.CDN_BASE ||
-  "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@ec29ec5";
+  "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@latest";
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
