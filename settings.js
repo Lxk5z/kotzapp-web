@@ -1,4 +1,4 @@
-// Account wechseln (z.B. nach Login)
+// Account wechseln (z.B. nach Login) 
 function setCurrentAccount(id) {
   const clean = String(id).trim();
 
