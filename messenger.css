@@ -1,6 +1,6 @@
 
 body {
-  background-image: url("/images/header-background-christmas.png");
+  background-image: url("https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@712e3f2/images/header-background-christmas.png");
   background-size: cover;        /* Bild füllt den Bereich */
   background-position: center;   /* Bild wird zentriert zugeschnitten */
   background-repeat: no-repeat;  /* verhindert Wiederholungen */
