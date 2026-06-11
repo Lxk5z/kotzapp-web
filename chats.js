@@ -7,7 +7,7 @@ function setCurrentAccount(id) {
 
   if (!/^U\d{2,}$/.test(clean)) {
     console.error("setCurrentAccount: ungültige id", id);
-    return false;
+    return false; 
   }
 
   localStorage.setItem("currently_account", clean);
