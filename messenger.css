@@ -1,0 +1,1157 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden !important;
+  background-color: color-mix(in srgb, var(--messenger-theme), #000000 45%);
+}
+
+:root {
+  --bg-img-path: url("./images/chat-bg.png"); 
+}
+
+.chat-bg {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100vw; 
+  height: 100vh;
+  z-index: -1;
+  
+  /* Deine Wunschfarbe für die Doodles */
+  background-color: var(--messenger-theme);
+  
+  /* MASK LOGIK NEU: */
+  /* Wir nutzen 'auto 100%', damit die Höhe immer 100vh ist, die Breite berechnet sich proportional */
+  -webkit-mask-image: var(--bg-img-path);
+  mask-image: var(--bg-img-path);
+  
+  -webkit-mask-size: auto 100%;
+  mask-size: auto 100%;
+  
+  /* Wiederholung nur auf der X-Achse (waagerecht) */
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  
+  /* Zentrierung, damit das Bild beim Skalieren nicht springt */
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+
+/* =======================
+   HEADER
+========================*/
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 1000;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: color-mix(in srgb, var(--messenger-header-background) 70%, transparent);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  color: var(--text-color);
+  box-sizing: border-box;
+  overflow: visible; /* Erlaubt das Dropdown-Menü */
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.152);
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;
+}
+
+.click-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  padding: 10px 0;
+  min-width: 0;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .click-area:hover .username      { color: var(--text-color-hell); }
+  .click-area:hover .info-description { color: var(--text-color-hell); }
+  .click-area:hover .info-icon     { fill: var(--text-color-hell); }
+}
+
+.click-area:active .username      { color: var(--text-color-heller); }
+.click-area:active .info-description { color: var(--text-color-heller); }
+.click-area:active .info-icon     { fill: var(--text-color-heller); }
+
+.left-block {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 0; /* Erlaubt dem Container, kleiner als sein Inhalt zu sein */
+  flex: 1;      /* Nimmt den verfügbaren Platz ein */
+}
+
+.profile-image {
+  width: 55px;
+  height: 55px;
+  margin-left: 5px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+  margin-left: 5px;
+  min-width: 0; /* Zwingt die Info-Box, bei Überlauf abzuschneiden */
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden !important;
+}
+
+/* =========================================
+   THEME DROPDOWN (Sprechblase)
+   ========================================= */
+.theme-dropdown {
+  position: fixed;
+  top: 85px;
+  left: 20px;
+  z-index: 1100;
+  background: color-mix(in srgb, var(--messenger-header-background) 95%, white 5%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 10px 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-dropdown.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Kleiner Pfeil nach oben */
+.theme-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 30px;
+  width: 12px;
+  height: 12px;
+  background: inherit;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+}
+
+.theme-dropdown-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.theme-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  cursor: pointer;
+  padding: 6px 10px;
+  margin: 0 -10px; /* Gleicht das Padding aus, damit der Inhalt bündig bleibt */
+  border-radius: 10px;
+  transition: background 0.2s ease;
+  user-select: none;
+}
+
+.theme-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.theme-preview-square {
+  width: 22px;
+  height: 22px;
+  background-color: var(--messenger-theme);
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.theme-label {
+  font-family: 'Play', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.theme-edit-btn {
+  background: none;
+  border: none;
+  color: var(--text-color-light);
+  cursor: pointer;
+  display: flex;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.theme-edit-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+}
+
+.username {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Play', sans-serif;
+}
+
+/* =========================================
+   RUNTERSCROLLEN BUTTON
+   ========================================= */
+/* Scroll-to-Bottom Button Styling */
+.scroll-bottom-btn {
+    position: fixed;
+    bottom: 90px; /* Über dem Input-Feld */
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: color-mix(in srgb, var(--messenger-time-badge) 70%, transparent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 9999 !important; /* Ganz oben auf dem Stack! 🔝 */
+    border: 2px solid var(--menu-color-dark);
+    
+    /* Der magische Teil: Standardmäßig unsichtbar */
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Wenn der Button sichtbar wird */
+.scroll-bottom-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Mini-Scale Effekt beim Drücken */
+.scroll-bottom-btn:active {
+  transform: scale(0.85);
+}
+
+.scroll-bottom-btn svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--text-color);
+}
+
+
+/* =========================================
+   KLASSENCHAT: SLIDING MEMBER LIST (Marquee)
+   ========================================= */
+
+/* 1. Der Container: Erzwingt eine Zeile und schneidet Überstand ab */
+.info-description {
+  margin: 0;
+  font-size: 14px; /* Deine gewünschte Standard-Größe */
+  opacity: 0.8;
+  font-family: sans-serif;
+  
+  /* Neuer Code für die einzeilige Darstellung: */
+  white-space: nowrap;    /* Verhindert Zeilenumbruch */
+  overflow: hidden;       /* Versteckt alles, was rechts rausragt */
+  display: inline-block;         /* Wichtig für overflow */
+  width: max-content;
+  position: relative;     /* Bezugspunkt für das Span */
+  will-change: transform;
+}
+
+/* 2. Der Inhalt (das Span aus dem JS): Das Element, das wir bewegen */
+.marquee-content {  /* Erlaubt transform */
+  padding-left: 0;        /* Startet ganz links */
+  white-space: nowrap;
+}
+
+/* Optional: Verhindert Hover-Effekte auf dem Sliding Text */
+.click-area:hover .info-description .marquee-content {
+  color: inherit;
+}
+
+
+
+.info-icon {
+  width: 32px;
+  height: 32px;
+  fill: var(--text-color);
+  cursor: pointer;
+  flex-shrink: 0; /* Das Icon darf NIEMALS kleiner werden oder weichen */
+  margin-left: 15px;
+}
+
+.info-icon:hover {
+  opacity: 1;
+}
+
+
+/* Header particles */
+.header-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.header-particle {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--driftX), -140px) scale(0.2) rotate(var(--rotateEnd));
+    opacity: 0;
+  }
+}
+
+
+/* =======================
+   TASTATUR & INPUT
+========================*/
+
+.input-content {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: calc(80px + env(safe-area-inset-bottom));
+  height: auto;
+  z-index: 1000;
+  padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center; /* FIX: Icons vertikal zentrieren */
+  gap: 12px;
+  box-sizing: border-box;
+  min-width: 0; /* wichtig für Flexbox in manchen Browsern */
+  background: color-mix(in srgb, var(--messenger-header-background) 70%, transparent);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 -1px 3px rgba(255, 255, 255, 0.152);
+}
+
+/* Feature Notice Styling */
+.not-available-notice {
+  position: absolute;
+  bottom: calc(100% + 15px); /* Über der Bar */
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  color: #ff0000;
+  font-weight: 800;
+  font-size: 1.1rem;
+  /* Schwarze Outline Simulation */
+  text-shadow: 
+    -1.5px -1.5px 0 #000,  
+     1.5px -1.5px 0 #000,
+    -1.5px  1.5px 0 #000,
+     1.5px  1.5px 0 #000;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  font-family: 'Play', sans-serif;
+}
+
+.not-available-notice.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.input-content > * { min-width: 0; }
+
+/* Make svgs use currentColor so we can tint them easily */
+.input-content svg {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  color: rgba(255,255,255,0.92);
+  fill: currentColor;
+  opacity: 0.95;
+  cursor: pointer;
+}
+
+.add-icon {
+  flex: 0 0 52px; /* FIX: Größe an Kamera/Senden-Button anpassen */
+  width: 52px;   /* FIX: Größe an Kamera/Senden-Button anpassen */
+  height: 52px;  /* FIX: Größe an Kamera/Senden-Button anpassen */
+  margin-right: 6px;
+  color: rgba(255,255,255,0.92);
+}
+
+.tastatur-field {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  transition: flex 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-pill {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+  min-height: 52px;
+  max-height: 160px;
+  display: flex;
+  align-items: center; /* FIX: Sticker-Icon vertikal zentrieren */
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, transparent 20%, var(--messenger-header-background) 80%);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 20px rgba(6,6,12,0.08);
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: 
+    flex 0.4s ease-in-out, 
+    width 0.4s ease-in-out,
+    transform 0.12s ease,
+    outline 0.2s ease,
+    box-shadow 0.12s ease;
+  position: relative;
+}
+
+.input-highlighter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 14px 20px; /* Muss exakt dem Textarea-Padding entsprechen */
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1.4;
+  font-family: 'Inter', system-ui, sans-serif;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: var(--text-color);
+  pointer-events: none; /* Klicks gehen durch zur Textarea */
+  overflow: hidden;
+}
+
+.input-pill textarea {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent !important;
+  color: transparent !important; /* Macht den echten Text unsichtbar */
+  caret-color: var(--text-color); /* Cursor bleibt aber sichtbar! */
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 10px 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  resize: none;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  position: relative;
+  z-index: 2;
+}
+
+.formatting-mark {
+  color: var(--text-color-light);
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+/* FEATURE: Scrollbar für die Textarea stylen */
+.input-pill textarea::-webkit-scrollbar {
+  width: 6px; /* Schmaler */
+}
+
+.input-pill textarea::-webkit-scrollbar-track {
+  background: transparent; /* Hintergrund transparent */
+}
+
+.input-pill textarea::-webkit-scrollbar-thumb {
+  background-color: var(--text-color); /* Farbe */
+  border-radius: 3px; /* Abgerundete Ecken */
+}
+.input-pill textarea::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, var(--text-color) 80%, var(--text-color-not)); /* Leichter Hover-Effekt */
+}
+
+.input-pill textarea::placeholder {
+  color: var(--text-color-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.input-pill .icon-btn,
+.input-pill .sticker-icon {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  margin-left: 0;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  margin-left: 6px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255,255,255,0.9);
+}
+
+.camera-icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  flex-basis: 52px;
+  box-sizing: border-box;
+  opacity: 1;
+  min-width: 0;
+  overflow: hidden;
+  transition: width 0.4s ease-in-out, flex-basis 0.4s ease-in-out, opacity 0.3s ease, margin 0.4s ease-in-out;
+}
+
+.mic-send-btn {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 50%;
+  border: color-mix(in srgb, var(--send-btn-bg) 90%, var(--text-color)) solid 1px;
+  flex-shrink: 0;
+  background: var(--send-btn-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  box-shadow: 0 6px 18px rgba(6,6,12,0.14);
+  color: var(--accent-color, #fff);
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.12s ease;
+}
+
+.mic-send-btn svg {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Press feedback */
+.mic-send-btn:active,
+.add-icon:active,
+.icon-btn:active,
+.camera-icon:active {
+  transform: scale(0.96);
+}
+
+.read-more-btn {
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-top: 10px;
+  display: block;
+  user-select: none;
+  color: var(--text-color);
+  transition: color 0.2s ease;
+}
+
+.read-more-btn:hover {
+  color: var(--text-color-light-extrem);
+}
+
+
+/* =======================
+   ICON STATES: MIC / SEND
+========================*/
+
+.mic-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Globaler State: Mic/Send Button färbt sich grün, wenn Text da ist */
+.input-content.has-text .mic-send-btn {
+  --send-btn-bg: color-mix(in srgb, var(--messenger-theme) 95%, #ffffff 5%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--messenger-theme) 95%, #ffffff 5%),
+    color-mix(in srgb, var(--messenger-theme) 95%, #000000 5%)
+  );
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+} 
+
+.input-content.has-text .camera-icon {
+  width: 0;
+  flex-basis: 0;
+  margin-left: -12px; /* Schließt die Lücke des Flex-Gaps */
+  opacity: 0;
+  pointer-events: none;
+}
+
+.send-icon {
+  fill: white !important;
+  opacity: 0;
+  transform: rotate(-90deg);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.input-content.has-text .mic-icon {
+  opacity: 0;
+  transform: rotate(90deg);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.input-content.has-text .send-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.input-content:not(.has-text) .mic-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.input-content:not(.has-text) .send-icon {
+  opacity: 0;
+  transform: rotate(-90deg);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+
+/* =======================
+   MEDIA QUERIES
+========================*/
+
+@media (max-width: 800px) {
+  /* Pill darf smooth wachsen */
+  .input-content .input-pill {
+    flex: 1 1 0%;
+    min-width: 0;
+    max-width: none;
+    transition: 
+      flex-basis 0.4s ease-in-out, 
+      max-width 0.4s ease-in-out, 
+      width 0.4s ease-in-out, 
+      transform .12s ease, 
+      box-shadow .12s ease;
+  }
+
+  .input-content.has-text .input-pill {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .input-content { padding: 10px; height: 72px; }
+  .add-icon { width: 32px; height: 32px; }
+  .input-pill { height: 48px; width: 100%; max-width: 100% !important; }
+  .mic-send-btn { width: 48px; height: 48px; flex: 0 0 48px; }
+  .tastatur-field { justify-content: flex-start; }
+  .camera-icon, .mic-send-btn { flex-shrink: 0; }
+}
+
+@media (max-width: 420px) {
+  .camera-icon,
+  .mic-send-btn,
+  .input-pill .icon-btn {
+    flex: 0 0 44px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+  }
+  .add-icon { flex: 0 0 32px; width: 32px; height: 32px; }
+}
+
+@media (max-width: 350px) {
+  .info-icon { display: none; }
+}
+
+@media (max-width: 310px) {
+  .icon-btn { display: none; }
+}
+
+@media (max-width: 260px) {
+  .profile-image { display: none; }
+}
+
+
+
+/* =========================================
+   💬 CHAT NACHRICHTEN (WHATSAPP STYLE)
+   ========================================= */
+
+/* Der Haupt-Container für alle Nachrichten */
+.chat-content {
+  /* 1. Volle Höhe einnehmen */
+  position: absolute; /* oder fixed, falls es Probleme gibt */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  
+  /* 2. Scroll-Logik */
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+
+  /* 3. Der Trick: Padding statt Margins/Top/Bottom */
+  /* Oben: Header Höhe (80px) + kleiner Puffer */
+  padding-top: 100px; 
+  /* Unten: Input-Bar Höhe (80px) + kleiner Puffer */
+  padding-bottom: calc(100px + env(safe-area-inset-bottom)); 
+  /* Seiten-Abstand */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* =========================================
+   📜 CUSTOM SCROLLBAR (The "Ghost Track" Trick)
+   ========================================= */
+
+/* 1. Die Breite der Leiste (8px ist eleganter als 16px) */
+.chat-content::-webkit-scrollbar {
+  width: 8px !important; 
+  /* display: block WURDE ENTFERNT! */
+}
+
+/* 2. Der Track (Die Schiene) */
+.chat-content::-webkit-scrollbar-track {
+  background: transparent !important;
+  margin-top: 90px !important; 
+  margin-bottom: 90px !important; 
+}
+
+/* 3. Der Thumb (Der Balken, den man zieht) */
+.chat-content::-webkit-scrollbar-thumb {
+  /* Leicht transparentes Weiß, damit es nicht so extrem knallt */
+  background-color: color-mix(in srgb, var(--text-color) 50%, transparent) !important; 
+  border-radius: 20px !important;
+  
+  /* Profi-Trick: Durch einen unsichtbaren Rand wirkt der Balken schmaler und hat Platz zum Rand */
+  border: 2px solid transparent !important; 
+  background-clip: padding-box !important;
+}
+
+.chat-content::-webkit-scrollbar-thumb:hover {
+  background-color: var(--messenger-theme) !important; 
+}
+
+
+
+/* Eine Zeile im Chat (nimmt 100% Breite ein, um links/rechts auszurichten) */
+.message-row {
+  display: flex;
+  width: 100%;
+}
+
+.message-row-left {
+  justify-content: flex-start;
+}
+
+.message-row-right {
+  justify-content: flex-end;
+}
+
+/* Die Sprechblase an sich */
+.message-bubble {
+  max-width: 75%;
+  padding: 6px 10px;
+  border-radius: 12px;
+  white-space: pre-wrap; /* FIX: Zeilenumbrüche in Nachrichten anzeigen */
+  position: relative;
+  word-wrap: break-word;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.286);
+  display: flex;
+  flex-direction: column;
+  font-family: Arial;
+}
+
+/* Andere User (Links) */
+.message-bubble-other {
+  background-color: var(--message-bubble-other); /* Dunkles Grau für Darkmode */
+  color: var(--text-color) !important;
+  position: relative;
+  border-radius: 15px 15px 15px 0px; /* Unten links eckig für den Anschluss */
+  margin-left: 12px;
+}
+.message-bubble-other::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -10px; /* Schiebt das Element nach links raus */
+  width: 10px;
+  height: 15px;
+  background-color: inherit; /* Übernimmt auch hier die Farbe der Bubble */
+  
+  /* Hier schneiden wir die Rundung spiegelverkehrt (oben links) aus */
+  -webkit-mask-image: radial-gradient(circle at top left, transparent 12px, black 12.5px);
+  mask-image: radial-gradient(circle at top left, transparent 12px, black 12.5px);
+}
+
+/* Eigene Nachrichten (Rechts) */
+.message-bubble-me {
+  background-color: var(--messenger-theme); /* Klassisches WhatsApp-Grün */
+  color: #e9edef !important;
+  position: relative; /* Wichtig, damit das Schwänzchen andocken kann */
+  border-radius: 15px 15px 0px 15px; /* Oben links, Oben rechts, Unten rechts (eckig), Unten links */
+  margin-right: 12px;
+}
+.message-bubble-me::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: -10px; /* Schiebt das Element exakt an die rechte Kante nach außen */
+  width: 10px;
+  height: 15px;
+  background-color: inherit; /* Übernimmt automatisch die Farbe deiner Bubble! */
+  
+  /* Die Magie: Schneidet eine perfekte Rundung aus (funktioniert auch mit Hintergrundbildern!) */
+  -webkit-mask-image: radial-gradient(circle at top right, transparent 12px, black 12.5px);
+  mask-image: radial-gradient(circle at top right, transparent 12px, black 12.5px);
+}
+
+/* Fix: Da der *-Selektor in style.css die Vererbung stört, erzwingen wir hier die Farbe für den Inhalt */
+.message-bubble-me .message-text,
+.message-bubble-me .message-text b,
+.message-bubble-me .message-text i,
+.message-bubble-me .message-text s,
+.message-bubble-me .read-more-btn,
+.message-bubble-me .message-time {
+  color: var(--messenger-me-text) !important;
+}
+
+/* Der Name über der Nachricht */
+.message-sender-name {
+  font-size: clamp(14px, 1.5vw, 19px);
+  font-weight: bold;
+  color: #53bdeb; /* Hellblau, hebt sich gut ab */
+  /* Negatives Margin, um das Padding der Bubble (6px 10px) auszugleichen */
+  margin: -6px -10px 8px -10px;
+  padding: 6px 10px;
+  border-radius: 12px 12px 0 0; /* Oben abrunden wie die Bubble */
+}
+
+/* Der eigentliche Text */
+.message-text {
+  font-size: clamp(15px, 1.55vw, 21px);
+  line-height: 1.4;
+}
+
+/* Die Uhrzeit */
+.message-time {
+  font-size: clamp(13px, 1.5vw, 17px);
+  color: var(--text-color-heller);
+  align-self: flex-end; /* Drückt die Uhrzeit nach unten rechts */
+  margin-top: 2px;
+  margin-left: 15px; /* Abstand zum Text */
+}
+
+/* =========================================
+   🖼️ MEDIEN IN NACHRICHTEN
+   ========================================= */
+
+.message-image {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.message-image-placeholder {
+  width: 200px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #aaa;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+
+/* =========================================
+   ⚫️ LEERER CHATVERLAUF (Empty State)
+   ========================================= */
+.empty-state-banner {
+  position: fixed;
+  top: 120px; /* Abstand zum Header (der ist 80px hoch) */
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: 80%;
+  font-family: 'Play', sans-serif;
+  
+  /* Dein gewünschter Style */
+  background: #ffef134c;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  
+  padding: 15px 25px;
+  border-radius: 20px;
+  color: rgb(225, 255, 0);
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  z-index: 900;
+  box-shadow: 0 8px 32px rgba(251, 255, 0, 0.3);
+  border: 1px solid #ffef136e;
+  animation: glowingPulse 2s infinite ease-in-out;
+  
+  /* Animation für sanftes Erscheinen/Verschwinden */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .empty-state-banner:hover {
+    transform: translateX(-50%) scale(1.05) !important;
+  }
+}
+
+.empty-state-banner:active {
+  transform: translateX(-50%) scale(0.95) !important;
+}
+
+@keyframes glowingPulse {
+  0% {
+    box-shadow: 0 8px 16px rgba(251, 255, 0, 0.3),
+                0 8px 16px rgba(251, 255, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 32px rgba(252, 255, 91, 0.546),
+                0 8px 32px rgba(252, 255, 91, 0.546);
+  }
+  100% {
+    box-shadow: 0 8px 16px rgba(251, 255, 0, 0.3),
+                0 8px 16px rgba(251, 255, 0, 0.3);
+  }
+}
+
+.empty-state-banner.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* =================
+   📅 DATUM
+   ================= */
+/* Der normale Divider zwischen den Nachrichten */
+.chat-divider {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+  width: 100%;
+  transition: opacity 0.2s ease;
+}
+
+.chat-divider.is-hidden {
+  opacity: 0 !important;
+  transition: none !important; /* Killt den Fade-out Zeitfresser */
+  visibility: hidden; /* Sicher ist sicher */
+}
+
+.chat-divider span {
+  background-color: color-mix(in srgb, color-mix(in srgb, var(--messenger-time-badge) 90%, white) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--messenger-time-badge), var(--text-color) 20%);
+  color: var(--text-color); /* Typisches WhatsApp-Grau */
+  padding: 5px 12px;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  min-width: 30%;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Das schwebende Badge mit Expansions-Effekt */
+.floating-date-badge {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-51.8%); /* Immer zentriert */
+  background-color: color-mix(in srgb, color-mix(in srgb, var(--messenger-time-badge) 90%, white) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--messenger-time-badge), var(--text-color) 20%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  color: var(--text-color);
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 100000;
+  opacity: 0;
+  text-align: center;
+  min-width: 27.9%;
+  font-weight: bold;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Die Animation [ <-|BADGE|-> ] */
+.badge-expand-anim {
+  animation: badgeExpand 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes badgeExpand {
+  from {
+    transform: translateX(-51.8%) scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-51.8%) scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Der feste Divider im Chat */
+.chat-divider span {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+/* Diese Klasse blendet den Divider aus, wenn er unterm Sticky liegt */
+.chat-divider.is-hidden span {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+.floating-date-badge.visible {
+  opacity: 1;
+}
+
+/* ==========================
+   Avatar neben der Nachricht
+  ========================== */
+/* Container für die ganze Nachrichten-Zeile */
+.message-row {
+    display: flex;
+    align-items: flex-end; /* Bilder kleben unten an der Nachricht */
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.message-row.me {
+    justify-content: flex-end;
+}
+
+.message-row.other {
+    justify-content: flex-start;
+}
+
+/* Avatar Styling */
+.avatar-container {
+    width: 35px;
+    height: 35px;
+    margin-right: 0px;
+    margin-bottom: 2px; /* Kleiner Offset für die Optik */
+    flex-shrink: 0; /* Verhindert, dass das Bild gequetscht wird */
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Kreisförmig */
+    object-fit: cover;
+    background-color: #ccc;
+    display: block;
+}
+
+/* Anpassung der Bubble für 'other' */
+.message-bubble-other {
+    position: relative;
+    /* Deine restlichen Styles bleiben gleich */
+}
+
+/* Kleiner Text für den Namen über der Nachricht */
+.sender-name {
+    font-size: 0.85em;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
