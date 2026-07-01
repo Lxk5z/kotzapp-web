@@ -1,4 +1,4 @@
-  window.CDN_BASE = "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web";
+  window.CDN_BASE = "https://cdn.jsdelivr.net/gh/Lxk5z/kotzapp-web@c75d730";
   window.API_BASE = "https://kotzapp.onrender.com";
 
   // VERSION
