@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+
+/* ===================================
+   🚫 Text markieren & Long-Press aus
+=================================== */
+* {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Inputs dürfen natürlich weiterhin Text auswählen */
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+  font-size: 16px !important; /* Verhindert automatisches Ranzoomen beim Anklicken auf iPhones */
+  caret-color: color-mix(in srgb, var(--accent-color), white 20%);
+}
+
+/* Setzt die Farbe für markierten Text auf die Akzentfarbe (#00C853) */
+::selection {
+  background-color: var(--accent-color);
+  color: var(--text-color-not);
+}
+
+/* =========================================
+   Farben festlegen (Dunkel-/Hellmodus)
+========================================= */
+
+/* Standard (Hellmodus) */
+@media (prefers-color-scheme: light) {
+:root {
+  --background-color: #ffffff;
+
+  --text-color: #000000;
+  --text-color-light-extrem: #181818;
+  --text-color-not: #ffffff;
+  --text-color-light: #8f8f8f;
+  --text-color-hell: #3d3d3d;
+  --text-color-heller: #5a5a5a;
+
+  --accent-color: #0da82e;
+  --accent-color-dark: #086b1d;
+  --accent-color-dark-extreme: #002708;
+
+  --menu-color-light: #d2d2d2;
+  --menu-color: #bababa;
+  --menu-color-dark: #9c9c9c;
+  --menu-color-dark-extreme: #7d7d7d;
+  --menu-hover-accent: #ffffff;
+  --menu-hover-accent-2: #cdcdcd;
+
+  --search-icon-hover: #ffffff;
+  --search-icon-hover-hover: #d8d8d8;
+
+  --chats: #f4f4f4;
+  --chats-darker: #e3e3e3;
+  --chats-hover: #dfdfdf;
+  --chats-hover-border: #3d3d3d;
+  --search-clear: #161515;
+  --chats-shadow-top: #fbfbfb;
+  --chats-shadow-bottom: #ededed;
+
+  --settings-search-hover: #000000;
+  --settings-search-hover-hover: #000000;
+  --settings-search-hover-accent-2: #000000;
+
+  --messenger-header-background: #fff;
+  --send-btn-bg: #ededed;
+  --messenger-online-akzent: #373737;
+  --message-bubble-other: #e0e0e0;
+  --messenger-time-badge: #e7e7e7;
+  --messenger-name-bg-mix: black;
+  }
+}
+
+/* Dunkelmodus */
+@media (prefers-color-scheme: dark) {
+  :root {
+   --background-color: #0a0a0a;
+
+   --text-color: #ffffff;
+   --text-color-light-extrem: #e7e7e7;
+   --text-color-not: #000000;
+   --text-color-light: #8f8f8f;
+   --text-color-hell: #8f8f8f;
+   --text-color-heller: #7f7f7f;
+
+   --accent-color: #00C853;
+   --accent-color-dark: #009b40;
+   --accent-color-dark-extreme: #003a13;;
+
+   --menu-color-light: #3f3f3f;
+   --menu-color: #2d2d2d;
+   --menu-color-dark: #232323;
+   --menu-color-dark-extreme: #161616;
+   --menu-hover-accent: #00C853;
+   --menu-hover-accent-2: #00C853;
+
+   --search-icon-hover: #00C853;
+   --search-icon-hover-hover: #009b40;
+
+   --chats: #161616;
+   --chats-darker: #272727;
+   --chats-hover: #232323;
+   --chats-dark: #111111;
+   --chats-hover-border: #00C853;
+   --chats-shadow-top: #1a1a1a;
+   --chats-shadow-bottom: #121212;
+
+   --settings-search-hover: #00C853;
+   --settings-search-hover-hover: #009b40;
+   --settings-search-hover-accent-2: #00C853;
+
+   --messenger-header-background: #171717;
+   --send-btn-bg: #1f1f1f;
+   --messenger-online-akzent: #00ff00;
+   --message-bubble-other: #202c33;
+   --messenger-time-badge: #161616;
+   --messenger-name-bg-mix: white;
+  }
+}
+
+/* Globale Farben*/
+:root {
+  --rank-color-donator: #523c00;
+  --rank-color-background-donator: #af8100;
+  --rank-color-donatorplus: #00747f;
+  --rank-color-background-donatorplus: #00d2e5;
+  --rank-color-moderator: #414141;
+  --rank-color-background-moderator: #909090;
+  --rank-color-admin: #fff;
+  --rank-color-background-admin: #e53935; 
+  --rank-color-apex: #5e0061;
+  --rank-color-background-apex: #e600ee;
+
+  --navbar-height: 80px;
+
+  --messenger-theme: #28a200; /* #28a200 */
+  --messenger-me-text: #e9edef;
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  color: var(--text-color)
+}
+
+
+html, body {
+  height: 100%;
+  overflow-x: hidden; /* nur horizontales Scrollen blockieren */
+  overflow-y: hidden; /* Globales Scrollen verhindern, damit nur die Chat-Container scrollen */
+  overscroll-behavior: none;
+}
+
+
+/* =========================================
+   Transition zwischen den Seiten
+========================================= */
+
+#page-transition-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: black;
+    z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+    pointer-events: none;
+    opacity: 0;
+    display: none; /* NEU: Standardmäßig komplett weg */
+    transition: opacity 0.3s ease-in-out;
+}
+
+#page-transition-overlay.is-active {
+    display: block; /* Nur wenn aktiv, wird es angezeigt */
+}
+
+#page-transition-overlay.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+
+/* =========================================
+   Fonts
+========================================= */
+        @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
